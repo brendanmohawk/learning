@@ -10,8 +10,6 @@ public class Main {
         // The object type of Shape cannot be instantiated
         // Rectangle rectangle2 = new Shape("Blue", 3, 4);
 
-
-
         // Use methods defined in Shape, implemented by Rectangle
         Rectangle rectangle = new Rectangle("Red", 5, 10);
         rectangle.displayColor();
