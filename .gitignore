@@ -3,6 +3,7 @@
 *.log
 *.tmp
 *.bak
+*.lst
 
 # OS generated files
 .DS_Store
