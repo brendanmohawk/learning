@@ -22,3 +22,7 @@ Thumbs.db
 /*.jar
 /*.war
 /*.ear
+
+# Testing
+brendanddev.Testing.txt
+TEST-*.xml
