@@ -1,5 +1,6 @@
 package brendanddev.collections.equalsandhashcode;
 
+import java.util.Objects;
 
 /**
  * This class represents an HashCollision object with a name and an id.
@@ -25,6 +26,10 @@ public class HashCollision {
     public HashCollision(String name, int id) {
         this.name = name;
         this.id = id;
+    }
+
+    public int getId() {
+        return id;
     }
 
     /**
@@ -59,4 +64,56 @@ public class HashCollision {
         return "HashCollision{name='" + name + "', id=" + id + "}";
     }
     
+}
+
+/**
+ * Better implementation for comparison
+ * 
+ * This version of the class uses a much stronger hashCode implementation by combining both name and id fields into the calculation. It
+ * uses Java's built in Objects.hash(), which applies a algorithm to generate a more evenly distributed range of hash codes.
+ * 
+ * It is considered better because it uses more fields to generate the hash code, both of which are unique identifiers for the object,
+ * increasing the variety of hash outputs and reducing the likelihood of collisions. The algorithm also distributes values more evenly 
+ * across buckets, keeping operations fast and efficient, and reducing clustering. This leads to a lower collision rate, meaning fewer 
+ * different objects will end up with the same hash code, keeping operations fast.
+ * 
+ * The  Objects.hash() method is a utility method that internally calls the Arrays.hashCode(Object[]) method, which iterates over each field
+ * and combines their hash codes using a prime multiplier (like 31) to produce a final hash. This spreads values well across the integer space,
+ * making it less likely for different objects to produce the same hash code.
+ * 
+ * Typically in a HashMap or HashSet, the hash code is processed, often with some bit shifting and masking, to pick a bucket index. The better
+ * and more uniform the distribution of hash codes, the more evenly objects are spread across the buckets, and the faster lookups remain.
+ */
+class BetterHashCollision {
+    private final String name;
+    private final int id;
+    
+    public BetterHashCollision(String name, int id) {
+        this.name = name;
+        this.id = id;
+    }
+
+    /**
+     * Compares this BetterHashCollision object with another object for equality 
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BetterHashCollision other = (BetterHashCollision) o;
+        return this.id == other.id && Objects.equals(this.name, other.name);
+    }
+
+    /**
+     * Provides a better hash code implementation that combines both name and id fields, using the Objects.hash() method
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, id);
+    }
+    
+    @Override
+    public String toString() {
+        return "BetterHashCollision{name='" + name + "', id=" + id + ", hash=" + hashCode() + "}";
+    }
 }
