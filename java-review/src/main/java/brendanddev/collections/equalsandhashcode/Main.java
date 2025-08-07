@@ -2,6 +2,11 @@ package brendanddev.collections.equalsandhashcode;
 
 import java.util.*;
 
+/**
+ * A demonstration of hash collisions in Java using a poor hash function and how it affects the performance
+ * of hash based collections like HashMap and HashSet. The class also includes methods to compare the performance
+ * of a good hash function versus a poor one, and to analyze how objects are distributed across hash buckets.
+ */
 public class Main {
 
     public static void main(String[] args) {
@@ -14,6 +19,12 @@ public class Main {
 
         // Show HashMap behavior with collisions
         demonstrateHashMapBehavior();
+
+        // Show HashSet behavior with collisions
+        demonstrateHashSetBehavior();
+
+        // Analyze hash bucket distribution
+        analyzeHashDistribution();
     }
 
     /**
@@ -135,5 +146,69 @@ public class Main {
         System.out.println("\nEven with collisions, HashMap works correctly!");
         System.out.println("It uses equals() to distinguish between objects with same hash code.");
         System.out.println("But performance suffers due to linear search within buckets.\n");
+    }
+    
+
+    /**
+     * Demonstrates how HashSet handles hash collisions by adding several HashCollision objects with
+     * the same hash code and showing how it still allows correct retrieval of values using equals().
+     */
+    private static void demonstrateHashSetBehavior() {
+        System.out.println("4. HASHSET BEHAVIOR WITH COLLISIONS");
+        System.out.println("===================================");
+        
+        Set<HashCollision> set = new HashSet<>();
+        
+        // Demonstrate collision handling
+        HashCollision alice1 = new HashCollision("Alice", 1);
+        HashCollision alice2 = new HashCollision("Alice", 1); // Same object logically
+        HashCollision bob = new HashCollision("Bob", 3);       // Different object, same hash
+        
+        set.add(alice1);
+        set.add(alice2); // Won't be added (equals returns true)
+        set.add(bob);    // Will be added (equals returns false despite same hash)
+        
+        System.out.println("HashSet contents:");
+        set.forEach(System.out::println);
+        System.out.println("Set size: " + set.size());
+        
+        System.out.println("\nDemonstrating collision buckets:");
+        analyzeHashDistribution();
+        
+        System.out.println("\n=== KEY TAKEAWAYS ===");
+        System.out.println("Poor hash functions create many collisions");
+        System.out.println("Collisions hurt performance but don't break correctness");
+        System.out.println("equals() is used to resolve collisions");
+        System.out.println("Good hash functions distribute objects evenly");
+        System.out.println("Use Objects.hash() for combining multiple fields");
+    }
+
+     /**
+      * Analyzes how objects are distributed across hash buckets in a HashMap.
+      */
+    private static void analyzeHashDistribution() {
+        Map<Integer, List<HashCollision>> buckets = new HashMap<>();
+        
+        // Create several objects
+        for (int i = 1; i <= 10; i++) {
+            HashCollision obj = new HashCollision("Person" + i, i);
+            
+            // Grab hash code using poor hash function
+            int hash = obj.hashCode();
+            
+            // Tries to add object to existing bucket or creates a new one if dosent exist
+            // This will show how many objects collide in each bucket
+            buckets.computeIfAbsent(hash, k -> new ArrayList<>()).add(obj);
+        }
+        
+        // Print out the distribution of objects across buckets
+        System.out.println("Hash bucket distribution:");
+        buckets.forEach((hash, objects) -> {
+            System.out.println("Bucket " + hash + " (" + objects.size() + " objects): " + 
+                             objects.stream()
+                                   .map(o -> "id=" + o.getId())
+                                   .reduce((a, b) -> a + ", " + b)
+                                   .orElse("empty"));
+        });
     }
 }
