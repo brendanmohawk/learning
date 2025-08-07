@@ -112,12 +112,49 @@ public class CustomList<E> implements Iterable<E> {
     }
 
     /**
+     * Removes the element at the specified index and shifts subsequent elements left.
+     * The array element is dereferenced (setting array slot to null) to allow Javas garbage collector
+     * to reclaim memory. This is done because the garbage collection can only reclaim memory if there 
+     * are no live references to an object.
+     * 
+     * @param index the index of the element to remove (0-based)
+     * @return the removed element
+     * @throws IndexOutOfBoundsException if index is out of range
+     */
+    public E remove(int index) {
+        // Validate the index is within bounds of the list
+        checkIndex(index);
+        E removedElement = elements[index];
+        // Shift elements left to fill the gap
+        int numMoved = size - index - 1;
+        if (numMoved > 0) {
+            System.arraycopy(elements, index + 1, elements, index, numMoved);
+        }
+        elements[--size] = null; // Clear to let GC do its work
+        return removedElement;
+    }
+
+    /**
      * Retrieves the current number of elements in the list
      * 
      * @return The size of the list
      */
     public int size() {
         return size;
+    }
+
+    /**
+     * Returns a string representation of the CustomList, showing all elements in order
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("[");
+        for (int i = 0; i < size; i++) {
+            sb.append(elements[i]);
+            if (i < size - 1) sb.append(", ");
+        }
+        sb.append("]");
+        return sb.toString();
     }
 
     /**
