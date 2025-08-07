@@ -11,6 +11,9 @@ public class Main {
 
         // Compare performance of good vs poor hash functions
         comparePerformance();
+
+        // Show HashMap behavior with collisions
+        demonstrateHashMapBehavior();
     }
 
     /**
@@ -98,5 +101,39 @@ public class Main {
         System.out.println();
     }
     
-
+    /**
+     * Demonstrates how HashMap handles hash collisions by adding several HashCollision objects with
+     * the same hash code and showing how it still allows correct retrieval of values using equals().
+     */
+    private static void demonstrateHashMapBehavior() {
+        System.out.println("3. HASHMAP BEHAVIOR WITH COLLISIONS");
+        System.out.println("===================================");
+        
+        Map<HashCollision, String> map = new HashMap<>();
+        
+        // Add objects that will collide
+        HashCollision person1 = new HashCollision("Alice", 1);   // hash = 1
+        HashCollision person2 = new HashCollision("Bob", 3);     // hash = 1 (collision!)
+        HashCollision person3 = new HashCollision("Charlie", 5); // hash = 1 (collision!)
+        HashCollision person4 = new HashCollision("Diana", 2);   // hash = 0
+        HashCollision person5 = new HashCollision("Eve", 4);     // hash = 0 (collision!)
+        
+        map.put(person1, "Engineer");
+        map.put(person2, "Designer");
+        map.put(person3, "Manager");
+        map.put(person4, "Developer");
+        map.put(person5, "Analyst");
+        
+        System.out.println("HashMap contents:");
+        map.forEach((key, value) -> 
+            System.out.println(key + " -> " + value));
+        
+        System.out.println("\nLookup test:");
+        System.out.println("Looking up Alice (id=1): " + map.get(person1));
+        System.out.println("Looking up Bob (id=3): " + map.get(person2));
+        
+        System.out.println("\nEven with collisions, HashMap works correctly!");
+        System.out.println("It uses equals() to distinguish between objects with same hash code.");
+        System.out.println("But performance suffers due to linear search within buckets.\n");
+    }
 }
