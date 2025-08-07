@@ -46,6 +46,81 @@ public class CustomList<E> implements Iterable<E> {
     }
 
     /**
+     * Ensures that the underlying array has enough capacity to hold at least minCapacity elements.
+     * If not, resizes the array to a larger capacity.
+     * 
+     * This resizing strategy increases capacity by 50% of the current size, similar to how the
+     * ArrayList class in Java resizes internally.
+     * 
+     * @param minCapacity The minimum capacity required
+     */
+    public void ensureCapacity(int minCapacity) {
+
+        // Check if resize is needed
+        if (minCapacity > elements.length) {
+
+            // Increase the capacity of the array by 50%
+            int newCapacity = elements.length + (elements.length / 2);
+
+            // Ensure new capacity is at least minCapacity
+            if (newCapacity < minCapacity) {
+                newCapacity = minCapacity;
+            }
+
+            // Create a new array with the larger capacity and copy elements over
+            E[] newElements = (E[]) new Object[newCapacity];
+            System.arraycopy(elements, 0, newElements, 0, size);
+            elements = newElements;
+
+        }
+    }
+
+    /**
+     * Checks if the provided index is within the bounds of the list
+     * 
+     * @param index The index to check
+     * @throws IndexOutOfBoundsException If index is invalid
+     */
+    private void checkIndex(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+        }
+    }
+
+    /**
+     * Adds a new element to the end of the list, resizing if necessary.
+     * 
+     * @param element The element to add to the list
+     */
+    public void add(E element) {
+        // Ensure there is enough space, resize if needed
+        ensureCapacity(size + 1);
+        elements[size++] = element;
+    }
+
+    /**
+     * Retrieves the element at the specified index after validating the index is within bounds.
+     * 
+     * @param index The index of the element to retrieve (0-based)
+     * @return The element at the given index
+     * @throws IndexOutOfBoundsException If index is out of range
+     */
+    public E get(int index) {
+        // Validate the index is within bounds of the list
+        checkIndex(index);
+        return elements[index];
+    }
+
+    /**
+     * Retrieves the current number of elements in the list
+     * 
+     * @return The size of the list
+     */
+    public int size() {
+        return size;
+    }
+
+    /**
      * Declares a anonymous inner class that implements the Iterator<E> interface.
      * The anonymous class appears as if it has a method body since the method iterator() returns an instance
      * of the interface. Instead of returning a named class instance, it returns a new instance of an anonymous class
