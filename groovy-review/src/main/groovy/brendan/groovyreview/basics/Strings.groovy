@@ -1,11 +1,13 @@
 package brendan.groovyreview.basics
 
 /**
- * This class is a placeholder for string-related operations in Groovy.
+ * This class is demonstrates various string handling features in Groovy,
+ * including GStrings, multiline strings, slashy strings, and common string methods.
  */
 class Strings {
 
     static void main(String[] args) {
+        def name = "Brendan"
 
         // Shows the difference between GString and String in Groovy
         // GString allows for string interpolation, while Strings do not
@@ -41,7 +43,7 @@ class Strings {
         def regex = /\d+\.\d+/
         def windowsPath = /C:\Users\$name\Documents/
 
-        println "Slashy: $slashy"
+        println "Slashy: $slashedString"
         println "Regex pattern: $regex"
         println "Windows path: $windowsPath"
 
@@ -79,16 +81,5 @@ class Strings {
         println "Replace 'quick' with 'slow': ${sentence.replace('quick', 'slow')}"
         println "Substring 4-9: ${sentence.substring(4, 9)}"
         println "Reverse: ${sentence.reverse()}"
-
-
-
-
-
-
-
-
-
-
-
     }
 }
