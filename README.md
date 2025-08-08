@@ -5,6 +5,7 @@ This repository contains various code review exercises and learning projects acr
 ## Repository Structure
 learning/
 ├── java-review/
+├── groovy-review/
 ├── notes/
 ├── LICENSE
 ├── README.md
