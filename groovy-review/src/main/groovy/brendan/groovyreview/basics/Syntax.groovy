@@ -14,6 +14,8 @@ class Syntax {
         elvisOperator()
         safeNavigationOperator()
         ranges()
+        truthiness()
+        instanceAndTypeChecking()
     }
 
 
@@ -132,21 +134,77 @@ class Syntax {
     }
 
     /**
-     * 
+     * Shows Groovys truthiness rules, which determines how different values are evaluated in boolean
+     * context. In Groovy, many types have implicit boolean interpretations. For example, empty collections,
+     * empty strings, zero numbers, and null are considered "falsey" (treated as false), while non-empty 
+     * collections, non-empty strings, non-zero numbers, and true boolean values are "truthy" (treated as true).
      */
     static void truthiness() {
+        def emptyList = []                  // Falsy
+        def nonEmptyList = [1, 2, 3]        // Truthy
+        def nullValue = null                // Falsy
+        def nonNullValue = "Hello"          // Truthy
+        def zeroValue = 0                   // Falsy (zero is considered falsey)    
+        def nonZeroValue = 42               // Truthy (non-zero is considered truthy)    
+        def emptyString = ""                // Falsy (empty string is considered falsey)
+        def nonEmptyString = "Groovy"       // Truthy (non-empty string is considered truthy)
+        def falseValue = false              // Falsy (explicit false is considered falsey)
+        def trueValue = true                // Truthy (explicit true is considered truthy)
+
+        println "Is empty list truthy? ${emptyList ? 'Yes' : 'No'}"
+        println "Is non-empty list truthy? ${nonEmptyList ? 'Yes' : 'No'}"
+        println "Is null value truthy? ${nullValue ? 'Yes' : 'No'}"
+        println "Is non-null value truthy? ${nonNullValue ? 'Yes' : 'No'}"
+        println "Is zero value truthy? ${zeroValue ? 'Yes' : 'No'}"
+        println "Is non-zero value truthy? ${nonZeroValue ? 'Yes' : 'No'}"
+        println "Is empty string truthy? ${emptyString ? 'Yes' : 'No'}"
+        println "Is non-empty string truthy? ${nonEmptyString ? 'Yes' : 'No'}"
+        println "Is false value truthy? ${falseValue ? 'Yes' : 'No'}"
+        println "Is true value truthy? ${trueValue ? 'Yes' : 'No'}"
     }
 
     /**
-     * 
+     * Demonstrates how to check object types and instances in Groovy.
+     * Uses the 'instanceof' operator to check if an object is an instance of a specific class or interface.
+     * Also shows how to retrieve the class of an object using the '.class' property and '.getClass()' method.
      */
     static void instanceAndTypeChecking() {
+        def strObject = "Hello, Groovy!"
+        def listObject = [1, 2, 3]
+        def mapObject = [key: "value"]
+        def numberObject = 42
+        def booleanObject = true
+        def nullObject = null
+        def customObject = new CustomClass()
+
+        println "Is strObject an instance of String? ${strObject instanceof String}"
+        println "strObject.class: ${strObject.class}"
+        println "strObject.getClass().getName(): ${strObject.getClass().getName()}"
+
+        println "Is listObject an instance of List? ${listObject instanceof List}"
+        println "listObject.class: ${listObject.class}"
+        println "listObject.getClass().getName(): ${listObject.getClass().getName()}"
+
+        println "Is mapObject an instance of Map? ${mapObject instanceof Map}"
+        println "mapObject.class: ${mapObject.class}"
+        println "mapObject.getClass().getName(): ${mapObject.getClass().getName()}"
+
+        println "Is numberObject an instance of Number? ${numberObject instanceof Number}"
+        println "numberObject.class: ${numberObject.class}"
+        println "numberObject.getClass().getName(): ${numberObject.getClass().getName()}"
+
+        println "Is booleanObject an instance of Boolean? ${booleanObject instanceof Boolean}"
+        println "booleanObject.class: ${booleanObject.class}"
+        println "booleanObject.getClass().getName(): ${booleanObject.getClass().getName()}"
+
+        println "Is nullObject an instance of Object? ${nullObject instanceof Object}"
+        println "nullObject.class: ${nullObject?.class}"
+        println "nullObject.getClass().getName(): ${nullObject?.getClass()?.getName()}"
+
+        println "Is customObject an instance of CustomClass? ${customObject instanceof CustomClass}"
+        println "customObject.class: ${customObject.class}"
+        println "customObject.getClass().getName(): ${customObject.getClass().getName()}"
     }
-
-
-
-
-
 
 
 
