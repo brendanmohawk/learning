@@ -1,6 +1,7 @@
 package brendan.groovyreview
 
-class Hello {
+class Main {
+
 
 
     static void main(String[] args) {
