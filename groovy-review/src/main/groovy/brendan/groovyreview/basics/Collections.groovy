@@ -66,6 +66,30 @@ class Collections {
         list.add("Another Element")
         println "List after adding elements: $list"
 
+        println "=========== Maps in Groovy ==========\n"
+        Map<Integer, String> map = [1: "One", 2: "Two", 3: "Three"]
+        def mapOne = [name: "Brendan", age: 30, city: "New York"]
+        def mapTwo = [a: 1, b: 2, c: 3]
+        def mapThree = ["key1": "value1", "key2": "value2"]
+        def emptyMap = [:]
+
+        println "Map: $map"
+        println "Map One: $mapOne"
+        println "Map Two: $mapTwo"
+        println "Map Three: $mapThree"
+        println "Empty Map: $emptyMap"
+
+        println "Map Operations:"
+        println "Size of map: ${map.size()}"
+        println "Keys: ${map.keySet()}"
+        println "Values: ${map.values()}"
+        println "Map One Name: ${mapOne['name']}"
+        println "Map Two Key 'b': ${mapTwo['b']}"
+        println "Map Three Key 'key1': ${mapThree['key1']}"
+        println "Get Method for Map One: ${mapOne.get('name')}"
+
+    
+
 
 
 
