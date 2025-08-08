@@ -3,16 +3,16 @@ package brendanddev.collections.list;
 import java.util.Iterator;
 
 /**
+ * This class demonstrates a simplified generic dynamic array implementation similar to Java's ArrayList.
  * 
- * WHY ANONYMOUS CLASS IS USED HERE:
-     * - Iterator is only needed internally by this CustomList
-     * - No reusability outside this context
-     * - Keeps related code together (iterator logic stays with the collection)
-     * - Cleaner than creating a separate IteratorImpl.java file
-     * - Has implicit access to outer class members (closure over CustomList state)
-
-
+ * It provides a resizable list of elements that internally stores elements in a generic array, resizing automatically as elements are added.
+ * It supports adding, retrieving, and removing elements by index, and uses a resizing strategy that increases capacity by 50% when needed to 
+ * balance memory usage and performance. It also implements Iterable<E>, providing an anonymous inner class iterator for element traversal.
+ * The class handles nulling removed elements to help Java's garbage collector reclaim unused objects.
  * 
+ * Since generic arrays cannot be created directly in Java, the underlying array is created as Object[] and cast to E[] to satisfy type safety.
+ * Index bounds are checked for all access methods to ensure safety and consistent exception handling, and the iterator is implemented as an 
+ * anonymous inner class enabling easy access to outer class members without needing a separate Iterator implementation class.
  */
 public class CustomList<E> implements Iterable<E> {
 
@@ -71,7 +71,6 @@ public class CustomList<E> implements Iterable<E> {
             E[] newElements = (E[]) new Object[newCapacity];
             System.arraycopy(elements, 0, newElements, 0, size);
             elements = newElements;
-
         }
     }
 
