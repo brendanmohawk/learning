@@ -2,9 +2,10 @@ package brendan.groovyreview.basics
 
 import java.util.Collection
 
-
 /**
- *
+ * This class demonstrates working with core Groovy collection types like List, Map, Set, and nested collections.
+ * It covers basic operations, nested collections, common methods, and how to create and manipulate collections in Groovy.
+ * The class also shows how to use Groovy's dynamic typing and collection literals.
  */
 class Collections {
 
@@ -105,6 +106,29 @@ class Collections {
         println "Map Two Key 'b': ${mapTwo['b']}"
         println "Map Three Key 'key1': ${mapThree['key1']}"
         println "Get Method for Map One: ${mapOne.get('name')}"
+
+        // Demonstrates Sets in Groovy
+        // Sets are collections of unique elements, similar to sets in Python or HashSet in Java
+        // Sets can be created by coercing a list to a set or using the set constructor
+        println "=========== Sets in Groovy ==========\n"
+
+        // Declares a typed Set of Integers using Java style generics
+        Set<Integer> set = new HashSet<>([1, 2, 3, 4, 4, 4, 5])  // Duplicates are ignored
+
+        // Creates an untyped set with Groovys dynamic typing
+        Set<String> set2 = ["Groovy", "Java", "Kotlin"] as Set
+
+        // Converts a list to a set to remove duplicates
+        def set3 = ["Apple", "Banana", "Cherry", "Apple"] as Set
+
+        // Creates an empty set (equivalent to Set<Object>)
+        def emptySet = [] as Set
+
+        println "Set: $set"
+        println "Set 2: $set2"
+        println "Set 3: $set3"
+        println "Empty Set: $emptySet"
+        
 
         // Demonstrates nested collections in Groovy
         // Nested collections can be lists of lists, maps of lists, or any combination thereof
