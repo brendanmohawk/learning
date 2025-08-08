@@ -12,6 +12,8 @@ class Syntax {
 
         variableDelcarations()
         elvisOperator()
+        safeNavigationOperator()
+        ranges()
     }
 
 
@@ -78,9 +80,55 @@ class Syntax {
 
 
     /**
-     * 
+     * Demonstrates Groovys range syntax and common operations that can be performed with ranges.
+     * Ranges represent a sequence of values defined by a start and an end, and can be numeric 
+     * or characters.
      */
     static void ranges() {
+        // Define inclusive range from 1 to 5 using '..' operator (Includes 1 and 5)
+        def range = 1..5
+
+        // Range from 1 up to (but excluding) 5 using '..<' operator
+        def rangeExclusiveEnd = 1..<5
+
+        // Reverse inclusive range from 5 to 1
+        def reverseRange = 5..1
+
+        // Character range from 'a' to 'e' inclusive
+        def charRange = 'a'..'e'
+
+        println "Range: $range"
+        println "Range Exclusive Start: $rangeExclusiveStart"
+        println "Range Exclusive End: $rangeExclusiveEnd"
+        println "Reverse Range: $reverseRange"
+        println "Character Range: $charRange"
+
+        // Iterate over numeric range and print each element
+        range.each { println it }
+
+        // Iterate over character range and print each character
+        charRange.each { println it }
+
+        // Can check if a value is within a range
+        def isInRange = 3 in range
+        println "Is 3 in range 1..5? $isInRange"
+
+        // Use range in a for loop
+        for (i in range) {
+            println "Looping through range: $i"
+        }
+
+        // Ranges can also be used with collections
+        def list = [1, 2, 3, 4, 5]
+        // Uses range as a subscript to get a sublist (1 to 3 inclusive)
+        def subList = list[1..3]
+        println "Sublist from index 1 to 3: $subList"
+
+        // Ranges can be used with strings as well
+        def str = "Hello, Groovy!"
+        // Uses range as a substring index (chars 0 to 4 inclusive)
+        def subStr = str[0..4]
+        println "Substring from index 0 to 4: $subStr"
     }
 
     /**
